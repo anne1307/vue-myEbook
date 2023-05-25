@@ -1,31 +1,39 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <span class="text">ABCDE</span>
     <router-view/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import { mapGetters } from 'vuex'
+// 获取html根元素并设置fontsize属性
+export default {
+  computed: {
+    // ...是ES6中的扩展运算符
+    ...mapGetters(['test'])
+  },
+  mounted () {
+    this.$store.dispatch('setTest', 1).then(() => {
+      // console.log(this.$store.state.book.test)
+      console.log(this.test)
+    })
+  }
 }
-#nav {
-  padding: 30px;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const html = document.querySelector('html')
+  let fontSize = window.innerWidth / 10
+  // 为fontSize设置最大值
+  fontSize = fontSize > 50 ? 50 : fontSize
+  html.style.fontSize = fontSize + 'px'
+})
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+<style lang="scss" scoped>
+@import "./assets/styles/global.scss";
+.text{
+  font-family:'Days One';
+  font-size: px2rem(20);
+  color:orange
 }
 </style>
